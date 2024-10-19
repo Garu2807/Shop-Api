@@ -1,12 +1,14 @@
 import React from 'react';
 import { ProductProps } from './types/Product';
+import { Item } from './Product.styles';
 
 function ProductItem({ product }: ProductProps) {
   return (
-    <div>
+    <Item>
+      <img src={product.image} alt="product_img" />
       <p>{product.title}</p>
-      <p>{product.price}</p>
-    </div>
+      <p>{`$ ${product.price}`}</p>
+    </Item>
   );
 }
 

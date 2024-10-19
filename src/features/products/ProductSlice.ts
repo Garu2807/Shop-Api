@@ -4,6 +4,7 @@ import * as api from '../../api';
 
 const initialState: ProductState = {
   products: [],
+  error: undefined,
 };
 export const loadProducts = createAsyncThunk(
   'products/loadProducts',
