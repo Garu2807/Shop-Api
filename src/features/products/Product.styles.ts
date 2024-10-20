@@ -24,10 +24,13 @@ export const StyledCard = styled(Card)`
   }
 `;
 
-export const StyledCardMedia = styled(CardMedia)`
+export const StyledImage = styled.img`
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
   width: 100%;
-  height: 180px; /* Немного уменьшаем высоту изображения, чтобы освободить место для текста */
-  object-fit: cover; /* Изображение сохраняет пропорции, заполняя весь контейнер */
+  object-fit: contain;
 `;
 
 export const CardContentWrapper = styled.div`
@@ -39,9 +42,8 @@ export const CardContentWrapper = styled.div`
 `;
 
 export const StyledTypography = styled.div`
-  margin-bottom: 16px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  /* margin-bottom: 16px; */
+  font-size: 15px;
 `;
 
 export const StyledButtonWrapper = styled.div`
@@ -49,3 +51,15 @@ export const StyledButtonWrapper = styled.div`
   justify-content: space-between;
   padding: 0 16px 16px;
 `;
+// display: block;
+// -webkit-background-size: cover;
+// background-size: cover;
+// background-repeat: no-repeat;
+// -webkit-background-position: center;
+// background-position: center;
+// width: 100%;
+// /* object-fit: none; */
+// height: 200px;
+// width: auto;
+// object-fit: contain;
+// }
