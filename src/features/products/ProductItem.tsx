@@ -3,17 +3,24 @@ import { CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Product, ProductProps } from './types/Product';
 import { addToCart } from '../cart/CartSlice';
 import { useAppDispatch } from '../../redux/store';
+import { CartItem } from '../cart/types/Cart';
 
-const ProductItem = ({
+// Переписываем как обычную функцию
+function ProductItem({
   product,
   onAddToCart,
-}: ProductProps & { onAddToCart: () => void }) => {
+}: ProductProps & { onAddToCart: () => void }): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const handleAddToCart = (product: Product): void => {
-    dispatch(addToCart(product));
-    onAddToCart(); 
-  };
+  function handleAddToCart(product: Product): void {
+    const cartItem: CartItem = {
+      ...product,
+      quantity: 1,
+    };
+
+    dispatch(addToCart(cartItem));
+    onAddToCart();
+  }
 
   return (
     <StyledCard>
@@ -37,6 +44,6 @@ const ProductItem = ({
       </CardActions>
     </StyledCard>
   );
-};
+}
 
 export default ProductItem;

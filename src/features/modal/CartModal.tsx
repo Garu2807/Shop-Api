@@ -9,7 +9,7 @@ type CartModalProps = {
   handleClose: () => void;
 };
 
-const CartModal = ({ open, handleClose }: CartModalProps) => {
+function CartModal({ open, handleClose }: CartModalProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleRemoveCart = () => {
     dispatch(removeCart());
@@ -30,6 +30,6 @@ const CartModal = ({ open, handleClose }: CartModalProps) => {
       </Box>
     </Modal>
   );
-};
+}
 
 export default CartModal;

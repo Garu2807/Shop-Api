@@ -5,8 +5,8 @@ type NavbarProps = {
   handleOpenCart: () => void;
 };
 
-function Navbar({ handleOpenCart }: NavbarProps) {
-  const totalQuantity = useAppSelector((state) => state.cart.totalQuantity); 
+function Navbar({ handleOpenCart }: NavbarProps): JSX.Element {
+  const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
 
   return (
     <NavBar>

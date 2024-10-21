@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import CartItem from './CartItem';
 import { getCart } from './CartSlice';
 
-function CartList() {
+function CartList(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

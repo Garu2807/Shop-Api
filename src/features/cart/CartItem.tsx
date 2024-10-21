@@ -12,7 +12,7 @@ import {
 } from './Cart.styles';
 import { CartProps } from './types/Cart';
 
-function CartItem({ product }: CartProps) {
+function CartItem({ product }: CartProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
 
