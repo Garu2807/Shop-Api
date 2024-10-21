@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import productsReducer from '../features/products/ProductSlice';
+import cartReducer from '../features/cart/CartSlice';
 
 const store = configureStore({
-  reducer: { products: productsReducer },
+  reducer: { products: productsReducer, cart: cartReducer },
 });
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;

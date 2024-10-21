@@ -1,38 +1,52 @@
 import styled from 'styled-components';
+import { Card } from '@mui/material';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   flex-wrap: wrap;
-  flex-direction: row;
+  gap: 20px;
   width: 90%;
-  margin: 0 auto; 
-  margin-top: 0px;
+  margin: 20px auto;
 `;
-export const Item = styled.div`
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  width: 200px;
-  text-align: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  
+export const StyledCard = styled(Card)`
+  width: 300px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px;
+  transition: transform 0.3s ease;
+
   &:hover {
-    transform: scale(1.05); 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
-    border: 1px black solid;
+    transform: scale(1.05);
   }
+`;
 
-  img {
-    width: 100%;
-    height: 400px; 
-    max-height: 200px; 
-    object-fit: scale-down; 
-  }
+export const StyledImage = styled.img`
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+`;
 
-  p {
-    margin-top: 10px;
-    font-size: 14px;
-  }
+export const CardContentWrapper = styled.div`
+  flex-grow: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const StyledTypography = styled.div`
+  font-size: 15px;
+`;
+
+export const StyledButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px 16px;
 `;
