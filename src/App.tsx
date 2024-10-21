@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router';
 import ProductList from './features/products/ProductList';
 import Navbar from './features/navbar/Navbar';
-import CartModal from './features/modal/CartModal'; // Импортируем CartModal
-import { useAppDispatch } from './redux/store'; // Импортируем хук для диспетчера
-import { getCart } from './features/cart/CartSlice'; // Импортируем действие для загрузки корзины
+import CartModal from './features/modal/CartModal'; 
+import { useAppDispatch } from './redux/store'; 
+import { getCart } from './features/cart/CartSlice'; 
 
 function App(): JSX.Element {
   const [openCart, setOpenCart] = useState(false);

@@ -2,32 +2,45 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../redux/store';
 import { Button } from '@mui/material';
 import { removeFromCart, updateCartQuantity } from './CartSlice';
-import { Item, QuantityControls, Spec } from './Cart.styles';
+import {
+  Item,
+  QuantityControls,
+  Spec,
+  ProductDetails,
+  Price,
+  RemoveButton,
+  ControlsContainer,
+} from './Cart.styles';
 import { CartProps } from './types/Cart';
+
 function CartItem({ product }: CartProps) {
   const dispatch = useAppDispatch();
-  const handleRemoveFromCart = (): void => {
-    dispatch(removeFromCart({ id: product.id })); // Передаем объект с ключом id
-  };
   const [quantity, setQuantity] = useState(product.quantity);
+
+  const handleRemoveFromCart = (): void => {
+    dispatch(removeFromCart({ id: product.id }));
+  };
+
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity < 1) return;
 
     setQuantity(newQuantity);
     dispatch(updateCartQuantity({ id: product.id, quantity: newQuantity }));
   };
+
   useEffect(() => {
     setQuantity(product.quantity);
   }, [product.quantity]);
+
   return (
-    <>
-      <Item>
-        <img src={product.image} />
-        <Spec>
-          <p>{product.title}</p>
-          <p>{product.price}</p>
-        </Spec>
-        <Button onClick={handleRemoveFromCart}>Удалить</Button>
+    <Item>
+      <img src={product.image} alt={product.title} />
+      <ProductDetails>
+        <Spec>{product.title}</Spec>
+        <Price>{`$ ${product.price}`}</Price>
+      </ProductDetails>
+      <RemoveButton onClick={handleRemoveFromCart}>Удалить</RemoveButton>
+      <ControlsContainer>
         <QuantityControls>
           <button
             onClick={() => handleQuantityChange(quantity - 1)}
@@ -43,8 +56,8 @@ function CartItem({ product }: CartProps) {
           />
           <button onClick={() => handleQuantityChange(quantity + 1)}>+</button>
         </QuantityControls>
-      </Item>
-    </>
+      </ControlsContainer>
+    </Item>
   );
 }
 

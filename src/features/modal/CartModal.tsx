@@ -1,5 +1,5 @@
 import { Modal, Box, Typography } from '@mui/material';
-import CartList from '../cart/CartList'; // Подключаем CartList
+import CartList from '../cart/CartList'; 
 import { modalStyle } from './Modal.styles';
 
 type CartModalProps = {
