@@ -4,57 +4,44 @@ import ProductItem from './ProductItem';
 import { loadProducts } from './ProductSlice';
 import { Container } from './Product.styles';
 import Filter from '../filter/Filter';
-import { Snackbar, Alert } from '@mui/material'; 
+import { Snackbar, Alert } from '@mui/material';
 
 function ProductList() {
   const dispatch = useAppDispatch();
-
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-
-  // Состояния для Snackbar
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [addedProduct, setAddedProduct] = useState<string>('');
-
   useEffect(() => {
     dispatch(loadProducts());
   }, [dispatch]);
-
   const products = useAppSelector((store) => store.products.products);
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
-
   const handleCategoryChange = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
     setSelectedCategory(event.target.value as string);
   };
-
   const handleAddToCart = (productTitle: string) => {
     setAddedProduct(productTitle);
     setSnackbarOpen(true);
   };
-
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       selectedCategory === '' || product.category === selectedCategory;
     const matchesSearch = product.title
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
-
     return matchesCategory && matchesSearch;
   });
-
   const uniqueCategories = Array.from(
     new Set(products.map((product) => product.category))
   );
-
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
-
   return (
     <Container>
       <Filter
@@ -64,7 +51,6 @@ function ProductList() {
         onSearchChange={handleSearchChange}
         onCategoryChange={handleCategoryChange}
       />
-
       <Container>
         {filteredProducts.map((product) => (
           <ProductItem
@@ -74,7 +60,6 @@ function ProductList() {
           />
         ))}
       </Container>
-
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

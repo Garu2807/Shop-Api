@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyledCard, StyledImage } from './Product.styles';
 import { CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Product, ProductProps } from './types/Product';

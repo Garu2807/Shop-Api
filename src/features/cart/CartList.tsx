@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import CartItem from './CartItem';
-import { getCart, removeCart } from './CartSlice';
+import { getCart } from './CartSlice';
 
 function CartList() {
   const dispatch = useAppDispatch();
@@ -14,7 +14,6 @@ function CartList() {
 
   return (
     <>
-      
       <div>
         {cart.map((product) => (
           <CartItem key={product.id} product={product} />
