@@ -1,38 +1,39 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { CartState } from './types/CartState';
 import { CartItem } from './types/Cart';
-<<<<<<< Updated upstream
-=======
-import { Product, ProductId } from '../products/types/Product';
+import { ProductId } from '../products/types/Product';
 
 type CartResponse = {
   cart: CartItem[];
   totalQuantity: number;
 };
->>>>>>> Stashed changes
+export const getCart = createAsyncThunk<CartResponse>(
+  'cart/getCart',
+  async () => {
+    const state = localStorage.getItem('cartState');
+    const cart: CartItem[] = state ? JSON.parse(state).cart : [];
 
-export const getCart = createAsyncThunk('cart/getCart', async () => {
-  const state = localStorage.getItem('cartState');
-  const cart = state ? JSON.parse(state).cart : [];
+    const totalQuantity = cart.reduce(
+      (sum: number, product: CartItem) => sum + product.quantity,
+      0
+    );
 
-  const totalQuantity = cart.reduce(
-    (sum: number, product: CartItem) => sum + product.quantity,
-    0
-  );
+    return { cart, totalQuantity };
+  }
+);
 
-  return { cart, totalQuantity };
-});
 
 const initialState: CartState = {
   cart: [],
   totalQuantity: 0,
 };
 
+
 const CartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action) => {
+    addToCart: (state, action: PayloadAction<CartItem>) => {
       const { id } = action.payload;
       const existingProduct = state.cart.find((product) => product.id === id);
 
@@ -49,15 +50,9 @@ const CartSlice = createSlice({
 
       localStorage.setItem('cartState', JSON.stringify(state));
     },
-<<<<<<< Updated upstream
-    removeFromCart: (state, action) => {
-      const { id } = action.payload;
-      state.cart = state.cart.filter((product) => product.id !== id);
-=======
     removeFromCart: (state, action: PayloadAction<{ id: number }>) => {
       const { id } = action.payload;
-      state.cart = state.cart.filter((product: Product) => product.id !== id);
->>>>>>> Stashed changes
+      state.cart = state.cart.filter((product) => product.id !== id);
 
       state.totalQuantity = state.cart.reduce(
         (sum, product) => sum + product.quantity,
@@ -66,14 +61,10 @@ const CartSlice = createSlice({
 
       localStorage.setItem('cartState', JSON.stringify(state));
     },
-<<<<<<< Updated upstream
-    updateCartQuantity: (state, action) => {
-=======
     updateCartQuantity: (
       state,
       action: PayloadAction<{ id: ProductId; quantity: number }>
     ) => {
->>>>>>> Stashed changes
       const { id, quantity } = action.payload;
       const existingProduct = state.cart.find((product) => product.id === id);
 
@@ -95,10 +86,13 @@ const CartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getCart.fulfilled, (state, action) => {
-      state.cart = action.payload.cart;
-      state.totalQuantity = action.payload.totalQuantity;
-    });
+    builder.addCase(
+      getCart.fulfilled,
+      (state, action: PayloadAction<CartResponse>) => {
+        state.cart = action.payload.cart;
+        state.totalQuantity = action.payload.totalQuantity;
+      }
+    );
   },
 });
 

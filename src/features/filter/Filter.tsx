@@ -10,10 +10,7 @@ import {
   MenuItem,
   Select,
   TextField,
-<<<<<<< Updated upstream
-=======
   SelectChangeEvent,
->>>>>>> Stashed changes
 } from '@mui/material';
 
 type FilterProps = {
@@ -21,11 +18,7 @@ type FilterProps = {
   selectedCategory: string;
   uniqueCategories: string[];
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-<<<<<<< Updated upstream
-  onCategoryChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
-=======
   onCategoryChange: (event: SelectChangeEvent) => void;
->>>>>>> Stashed changes
 };
 
 const categoryTranslations: { [key: string]: string } = {
@@ -35,7 +28,6 @@ const categoryTranslations: { [key: string]: string } = {
   electronics: 'Электроника',
 };
 
-// Обычная функция
 function Filter({
   searchQuery,
   selectedCategory,

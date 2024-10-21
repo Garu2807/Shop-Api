@@ -5,7 +5,6 @@ import { addToCart } from '../cart/CartSlice';
 import { useAppDispatch } from '../../redux/store';
 import { CartItem } from '../cart/types/Cart';
 
-// Переписываем как обычную функцию
 function ProductItem({
   product,
   onAddToCart,
