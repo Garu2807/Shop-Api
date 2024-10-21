@@ -1,6 +1,8 @@
-import { Modal, Box, Typography } from '@mui/material';
-import CartList from '../cart/CartList'; 
+import { Modal, Box, Typography, Button } from '@mui/material';
+import CartList from '../cart/CartList';
 import { modalStyle } from './Modal.styles';
+import { useAppDispatch } from '../../redux/store';
+import { removeCart } from '../cart/CartSlice';
 
 type CartModalProps = {
   open: boolean;
@@ -8,8 +10,10 @@ type CartModalProps = {
 };
 
 const CartModal = ({ open, handleClose }: CartModalProps) => {
-
-
+  const dispatch = useAppDispatch();
+  const handleRemoveCart = () => {
+    dispatch(removeCart());
+  };
   return (
     <Modal
       open={open}
@@ -20,6 +24,7 @@ const CartModal = ({ open, handleClose }: CartModalProps) => {
       <Box sx={modalStyle}>
         <Typography id="cart-modal-title" variant="h6" component="h2">
           Ваша корзина
+          <Button onClick={handleRemoveCart}>Очистить корзину</Button>
         </Typography>
         <CartList />
       </Box>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../redux/store';
-import { Button } from '@mui/material';
 import { removeFromCart, updateCartQuantity } from './CartSlice';
 import {
   Item,
