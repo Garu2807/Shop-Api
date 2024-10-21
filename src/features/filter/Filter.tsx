@@ -10,6 +10,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  SelectChangeEvent, // Используем SelectChangeEvent для onCategoryChange
 } from '@mui/material';
 
 type FilterProps = {
@@ -17,7 +18,7 @@ type FilterProps = {
   selectedCategory: string;
   uniqueCategories: string[];
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onCategoryChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
+  onCategoryChange: (event: SelectChangeEvent) => void; // изменен тип события на SelectChangeEvent
 };
 
 const categoryTranslations: { [key: string]: string } = {
@@ -53,7 +54,6 @@ const Filter: React.FC<FilterProps> = ({
             <MenuItem value="">Все категории</MenuItem>
             {uniqueCategories.map((category) => (
               <MenuItem key={category} value={category}>
-                {/* Если категория есть в объекте, выводим перевод */}
                 {categoryTranslations[category] || category}
               </MenuItem>
             ))}

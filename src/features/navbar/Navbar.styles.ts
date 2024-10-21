@@ -15,7 +15,7 @@ export const Container = styled.div`
   width: 75px;
   align-items: center;
 `;
-export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(({ theme }) => ({
+export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(() => ({
   backgroundColor: 'transparent',
   transition: 'background-color 0.3s ease, transform 0.3s ease',
   color: 'black',
@@ -27,7 +27,6 @@ export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(({ theme }) => ({
   },
 }));
 
-
 export const CartCounter = styled.div<{ show: boolean }>`
   position: absolute;
   bottom: 0;
@@ -37,8 +36,7 @@ export const CartCounter = styled.div<{ show: boolean }>`
   background-color: red;
   color: white;
   border-radius: 50%;
-  display: ${({ show }) =>
-    show ? 'flex' : 'none'};
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   font-size: 12px;

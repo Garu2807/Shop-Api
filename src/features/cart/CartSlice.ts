@@ -1,6 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CartState } from './types/CartState';
 import { CartItem } from './types/Cart';
+import { Product } from '../products/types/Product';
+
+type CartResponse = {
+  cart: CartItem[];
+  totalQuantity: number;
+};
 
 export const getCart = createAsyncThunk('cart/getCart', async () => {
   const state = localStorage.getItem('cartState');
@@ -23,9 +29,12 @@ const CartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action) => {
+    addToCart: (state, action: PayloadAction<CartItem>) => {
       const { id } = action.payload;
-      const existingProduct = state.cart.find((product) => product.id === id);
+      // Приведение идентификатора к строке для сравнения
+      const existingProduct = state.cart.find(
+        (product) => String(product.id) === String(id)
+      );
 
       if (existingProduct) {
         existingProduct.quantity += 1;
@@ -40,9 +49,12 @@ const CartSlice = createSlice({
 
       localStorage.setItem('cartState', JSON.stringify(state));
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;
-      state.cart = state.cart.filter((product) => product.id !== id);
+      // Приведение идентификатора к строке для фильтрации
+      state.cart = state.cart.filter(
+        (product: Product) => String(product.id) !== String(id)
+      );
 
       state.totalQuantity = state.cart.reduce(
         (sum, product) => sum + product.quantity,
@@ -51,9 +63,15 @@ const CartSlice = createSlice({
 
       localStorage.setItem('cartState', JSON.stringify(state));
     },
-    updateCartQuantity: (state, action) => {
+    updateCartQuantity: (
+      state,
+      action: PayloadAction<{ id: string; quantity: number }>
+    ) => {
       const { id, quantity } = action.payload;
-      const existingProduct = state.cart.find((product) => product.id === id);
+      // Приведение идентификатора к строке для сравнения
+      const existingProduct = state.cart.find(
+        (product) => String(product.id) === String(id)
+      );
 
       if (existingProduct) {
         existingProduct.quantity = quantity;
@@ -73,10 +91,13 @@ const CartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getCart.fulfilled, (state, action) => {
-      state.cart = action.payload.cart;
-      state.totalQuantity = action.payload.totalQuantity;
-    });
+    builder.addCase(
+      getCart.fulfilled,
+      (state, action: PayloadAction<CartResponse>) => {
+        state.cart = action.payload.cart;
+        state.totalQuantity = action.payload.totalQuantity;
+      }
+    );
   },
 });
 
