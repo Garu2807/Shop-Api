@@ -1,14 +1,18 @@
-import React from 'react';
-import { StyledCard, StyledImage } from './Product.styles'; // Подключаем `StyledCardMedia`
+import { StyledCard, StyledImage } from './Product.styles';
 import { CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Product, ProductProps } from './types/Product';
 import { addToCart } from '../cart/CartSlice';
 import { useAppDispatch } from '../../redux/store';
 
-const ProductItem = ({ product }: ProductProps) => {
+const ProductItem = ({
+  product,
+  onAddToCart,
+}: ProductProps & { onAddToCart: () => void }) => {
   const dispatch = useAppDispatch();
+
   const handleAddToCart = (product: Product): void => {
     dispatch(addToCart(product));
+    onAddToCart(); 
   };
 
   return (

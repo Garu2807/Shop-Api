@@ -7,12 +7,14 @@ export const NavBar = styled.nav`
   align-content: center;
   justify-content: flex-end;
   padding: 0 215px 0 220px;
-  button {
-    height: 50px;
-    width: 50px;
-  }
 `;
-
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 75px;
+  align-items: center;
+`;
 export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(({ theme }) => ({
   backgroundColor: 'transparent',
   transition: 'background-color 0.3s ease, transform 0.3s ease',
@@ -24,3 +26,22 @@ export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(({ theme }) => ({
     transform: 'scale(1.1)',
   },
 }));
+
+
+export const CartCounter = styled.div<{ show: boolean }>`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  display: ${({ show }) =>
+    show ? 'flex' : 'none'};
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  transform: translate(30%, -30%);
+`;

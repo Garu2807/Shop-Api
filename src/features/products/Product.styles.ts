@@ -10,6 +10,21 @@ export const Container = styled.div`
   margin: 20px auto;
 `;
 
+export const FilterWrapper = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
 export const StyledCard = styled(Card)`
   width: 300px;
   min-height: 450px;
@@ -50,3 +65,6 @@ export const StyledButtonWrapper = styled.div`
   justify-content: space-between;
   padding: 0 16px 16px;
 `;
+
+
+
