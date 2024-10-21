@@ -1,5 +1,7 @@
 import { Product } from '../../products/types/Product';
+import { CartItem } from './Cart';
 
 export type CartState = {
-  cart: Product[];
+  cart: CartItem[];
+  totalQuantity: number;
 };

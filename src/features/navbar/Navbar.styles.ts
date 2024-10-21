@@ -18,6 +18,7 @@ export const StyledIcon = muiStyled(ShoppingBagOutlinedIcon)(({ theme }) => ({
   transition: 'background-color 0.3s ease, transform 0.3s ease',
   color: 'black',
   borderRadius: '12px',
+  fontSize: '3rem',
   '&:hover': {
     backgroundColor: 'rgba(211, 211, 211, 0.5)',
     transform: 'scale(1.1)',

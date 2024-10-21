@@ -1,38 +1,49 @@
-import React from 'react';
-import { Product, ProductId, ProductProps } from '../products/types/Product';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../redux/store';
-import { StyledCard, StyledImage } from '../products/Product.styles';
-import { Button, CardActions, CardContent, Typography } from '@mui/material';
-import { removeFromCart } from './CartSlice';
-import { LuShoppingCart } from 'react-icons/lu';
-function CartItem({ product }: ProductProps) {
+import { Button } from '@mui/material';
+import { removeFromCart, updateCartQuantity } from './CartSlice';
+import { Item, QuantityControls, Spec } from './Cart.styles';
+import { CartProps } from './types/Cart';
+function CartItem({ product }: CartProps) {
   const dispatch = useAppDispatch();
   const handleRemoveFromCart = (): void => {
     dispatch(removeFromCart({ id: product.id })); // Передаем объект с ключом id
   };
+  const [quantity, setQuantity] = useState(product.quantity);
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity < 1) return;
 
+    setQuantity(newQuantity);
+    dispatch(updateCartQuantity({ id: product.id, quantity: newQuantity }));
+  };
+  useEffect(() => {
+    setQuantity(product.quantity);
+  }, [product.quantity]);
   return (
     <>
-      <StyledCard>
-        <StyledImage src={product.image} />
-        <CardContent>
-          <Typography variant="h6" component="div">
-            {product.title}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small" color="primary" onClick={handleRemoveFromCart}>
-            Удалить
-          </Button>
-          <Typography
-            variant="h6"
-            component="div"
-            style={{ marginLeft: 'auto' }}
+      <Item>
+        <img src={product.image} />
+        <Spec>
+          <p>{product.title}</p>
+          <p>{product.price}</p>
+        </Spec>
+        <Button onClick={handleRemoveFromCart}>Удалить</Button>
+        <QuantityControls>
+          <button
+            onClick={() => handleQuantityChange(quantity - 1)}
+            disabled={quantity <= 1}
           >
-            ${product.price}
-          </Typography>
-        </CardActions>
-      </StyledCard>
+            -
+          </button>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => handleQuantityChange(Number(e.target.value))}
+            min="1"
+          />
+          <button onClick={() => handleQuantityChange(quantity + 1)}>+</button>
+        </QuantityControls>
+      </Item>
     </>
   );
 }

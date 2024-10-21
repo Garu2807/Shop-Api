@@ -1,12 +1,17 @@
-import { Link } from 'react-router-dom';
+
+import { useAppSelector } from '../../redux/store';
 import { NavBar, StyledIcon } from './Navbar.styles';
 
-function Navbar() {
+type NavbarProps = {
+  handleOpenCart: () => void;
+};
+
+function Navbar({ handleOpenCart }: NavbarProps) {
+  const totalQuantity = useAppSelector((state) => state.cart.totalQuantity);
   return (
     <NavBar>
-      <Link to="/cart">
-        <StyledIcon sx={{ fontSize: '3rem' }} />
-      </Link>
+      <StyledIcon onClick={handleOpenCart} />
+      <span className="cart-counter">{totalQuantity}</span>
     </NavBar>
   );
 }
